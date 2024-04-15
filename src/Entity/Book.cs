@@ -1,6 +1,6 @@
-namespace library_management.src
+namespace library_management.src.Entity
 {
-    public class Book : BaseClass
+    public class Book : BaseEntity
     {
         public string Title;
         public BooksTypes Type;

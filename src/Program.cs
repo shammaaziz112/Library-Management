@@ -1,4 +1,4 @@
-﻿using library_management.src;
+﻿using library_management.src.Entity;
 
 internal class Program
 {

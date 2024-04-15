@@ -1,12 +1,12 @@
-namespace library_management.src
+namespace library_management.src.Entity
 {
-    public class BaseClass
+    public class BaseEntity
     {
         public Guid Id = Guid.NewGuid();
         public DateTime CreateDate;
 
 
-        public BaseClass(DateTime? createDate = null)
+        public BaseEntity(DateTime? createDate = null)
         {
             CreateDate = createDate is null ? DateTime.Now : (DateTime)createDate;
         }

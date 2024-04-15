@@ -1,4 +1,4 @@
-namespace library_management.src
+namespace library_management.src.Entity
 {
     public class Library
     {

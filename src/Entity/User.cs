@@ -1,7 +1,7 @@
 
-namespace library_management.src
+namespace library_management.src.Entity
 {
-    public class User : BaseClass
+    public class User : BaseEntity
     {
         public string Name;
 
