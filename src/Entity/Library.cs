@@ -11,65 +11,69 @@ namespace library_management.src.Entity
             users = new List<User>();
         }
 
-        public void add<T>(T item)
+        public void Add<T>(T item)
         {
-            if (typeof(T) == typeof(Book))
+            if (item is Book book)
             {
-                books.Add(item as Book);
-                Console.WriteLine("added book");
-
+                books.Add(book);
+                Console.WriteLine($"Added book: {book.Title}");
+                return;
             }
-            else if (typeof(T) == typeof(User))
+            else if (item is User user)
             {
-                users.Add(item as User);
-                Console.WriteLine("added user");
-            }
+                users.Add(user);
+                Console.WriteLine($"Added user: {user.Name}");
+                return;
+            } 
+            Console.WriteLine("Didn't add successfully");
+            
         }
-
-
         public void Find<T>(T name)
         {
-            Book? foundBook = books.Find(book => book.Title == name as string);
+            if (name is string searchName)
+            {
+                var foundBook = books.Find(book => book.Title.Equals(searchName, StringComparison.OrdinalIgnoreCase));
+                if (foundBook != null)
+                {
+                    Console.WriteLine($"Found the book: {foundBook.Title}");
+                    return;
+                }
 
-            if (foundBook != null)
-            {
-                Console.WriteLine($"Founded the book: {foundBook.Title}");
+                var foundUser = users.Find(user => user.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
+                if (foundUser != null)
+                {
+                    Console.WriteLine($"Found the user: {foundUser.Name}");
+                    return;
+                }
             }
-            else
-            {
-                User? foundUser = users.Find(user => user.Name == name as string);
-                Console.WriteLine($"Founded the user: {foundUser.Name}");
-            }
+
+            Console.WriteLine($"{name} not found");
         }
 
         public void Delete(Guid id)
         {
-            Book? foundBook = books.Find(book => book.Id == id);
-            if (foundBook is not null)
+            var foundBook = books.FirstOrDefault(book => book.Id == id);
+            if (foundBook != null)
             {
                 books.Remove(foundBook);
-                Console.WriteLine($"Hey, {foundBook.Title} book with Id {id} deleted ");
+                Console.WriteLine($"Deleted book: {foundBook.Title} with Id {id}");
                 return;
             }
 
-            User? foundUser = users.Find(user => user.Id == id);
-            if (foundUser is not null)
+            var foundUser = users.FirstOrDefault(user => user.Id == id);
+            if (foundUser != null)
             {
                 users.Remove(foundUser);
-                Console.WriteLine($"Hey, {foundUser.Name} user with Id {id} deleted ");
+                Console.WriteLine($"Deleted user: {foundUser.Name} with Id {id}");
                 return;
             }
-            else
-            {
-                Console.WriteLine("Not Found");
-            }
+
+            Console.WriteLine("Id not found");
         }
 
         public void GetBooks()
         {
-            var sortedBooks = from book in books
-                              orderby book.CreateDate
-                              select book;
+            var sortedBooks = books.OrderBy(book => book.CreateDate);
             foreach (var book in sortedBooks)
             {
                 Console.WriteLine($"Title: {book.Title}, Type: {book.Type}, Date: {book.CreateDate} \n");
@@ -77,9 +81,7 @@ namespace library_management.src.Entity
         }
         public void GetUsers()
         {
-            var sortedUsers = from user in users
-                              orderby user.CreateDate
-                              select user;
+            var sortedUsers = users.OrderBy(user => user.CreateDate);
             foreach (var user in users)
             {
                 Console.WriteLine($"Title: {user.Name}, Date: {user.CreateDate} \n");

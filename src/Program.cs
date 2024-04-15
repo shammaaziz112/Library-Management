@@ -38,13 +38,13 @@ internal class Program
 
         var lib = new Library();
 
-        lib.add(book1);
-        lib.add(book2);
-        lib.add(book3);
+        lib.Add(book1);
+        lib.Add(book2);
+        lib.Add(book3);
 
-        lib.add(user1);
-        lib.add(user2);
-        lib.add(user3);
+        lib.Add(user1);
+        lib.Add(user2);
+        lib.Add(user3);
 
         lib.Find(book1.Title);
         lib.Delete(user1.Id);
