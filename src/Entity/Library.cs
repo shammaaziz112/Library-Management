@@ -2,8 +2,8 @@ namespace library_management.src.Entity
 {
     public class Library
     {
-        List<Book> books;
-        List<User> users;
+        public List<Book> books;
+        public List<User> users;
 
         public Library()
         {
@@ -15,18 +15,26 @@ namespace library_management.src.Entity
         {
             if (item is Book book)
             {
-                books.Add(book);
-                Console.WriteLine($"Added book: {book.Title}");
-                return;
+                var foundBook = books.Find(books => books.Title.Equals(book.Title));
+                if (foundBook == null)
+                {
+                    books.Add(book);
+                    Console.WriteLine($"Added book: {book.Title}");
+                    return;
+                }
             }
             else if (item is User user)
             {
-                users.Add(user);
-                Console.WriteLine($"Added user: {user.Name}");
-                return;
-            } 
+                var foundUser = users.Find(users => users.Name.Equals(user.Name));
+                if (foundUser == null)
+                {
+                    users.Add(user);
+                    Console.WriteLine($"Added user: {user.Name}");
+                    return;
+                }
+            }
             Console.WriteLine("Didn't add successfully");
-            
+
         }
         public void Find<T>(T name)
         {
@@ -48,6 +56,7 @@ namespace library_management.src.Entity
             }
 
             Console.WriteLine($"{name} not found");
+            return;
         }
 
         public void Delete(Guid id)

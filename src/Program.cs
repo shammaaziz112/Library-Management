@@ -38,18 +38,27 @@ internal class Program
 
         var lib = new Library();
 
+        Console.WriteLine("\n---Add Book/User---");
+        lib.Add(book1);
         lib.Add(book1);
         lib.Add(book2);
         lib.Add(book3);
 
         lib.Add(user1);
+        lib.Add(user1);
         lib.Add(user2);
         lib.Add(user3);
 
+        Console.WriteLine("\n---Find Book/User---");
         lib.Find(book1.Title);
+
+        Console.WriteLine("\n---Delete Book/User---");
         lib.Delete(user1.Id);
 
+        Console.WriteLine("\n---Display Book---");
         lib.GetBooks();
+
+        Console.WriteLine("\n---Display User---");
         lib.GetUsers();
     }
 }
