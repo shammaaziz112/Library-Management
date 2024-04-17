@@ -15,11 +15,11 @@ namespace library_management.src.Entity
         {
             if (item is Book book)
             {
-                var foundBook = books.Find(books => books.Title.Equals(book.Title));
+                var foundBook = books.Find(books => books.Name.Equals(book.Name));
                 if (foundBook == null)
                 {
                     books.Add(book);
-                    Console.WriteLine($"Added book: {book.Title}");
+                    Console.WriteLine($"Added book: {book.Name}");
                     return;
                 }
             }
@@ -40,10 +40,10 @@ namespace library_management.src.Entity
         {
             if (name is string searchName)
             {
-                var foundBook = books.Find(book => book.Title.Equals(searchName, StringComparison.OrdinalIgnoreCase));
+                var foundBook = books.Find(book => book.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
                 if (foundBook != null)
                 {
-                    Console.WriteLine($"Found the book: {foundBook.Title}");
+                    Console.WriteLine($"Found the book: {foundBook.Name}");
                     return;
                 }
 
@@ -65,7 +65,7 @@ namespace library_management.src.Entity
             if (foundBook != null)
             {
                 books.Remove(foundBook);
-                Console.WriteLine($"Deleted book: {foundBook.Title} with Id {id}");
+                Console.WriteLine($"Deleted book: {foundBook.Name} with Id {id}");
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace library_management.src.Entity
             var sortedBooks = books.OrderBy(book => book.CreateDate);
             foreach (var book in sortedBooks)
             {
-                Console.WriteLine($"Title: {book.Title}, Type: {book.Type}, Date: {book.CreateDate} \n");
+                Console.WriteLine($"Title: {book.Name}, Type: {book.Type}, Date: {book.CreateDate} \n");
             }
         }
         public void GetUsers()

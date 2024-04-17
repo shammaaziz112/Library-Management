@@ -50,7 +50,7 @@ internal class Program
         lib.Add(user3);
 
         Console.WriteLine("\n---Find Book/User---");
-        lib.Find(book1.Title);
+        lib.Find(book1.Name);
 
         Console.WriteLine("\n---Delete Book/User---");
         lib.Delete(user1.Id);

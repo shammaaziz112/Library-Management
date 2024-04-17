@@ -3,11 +3,13 @@ namespace library_management.src.Entity
     public abstract class BaseEntity
     {
         public Guid Id = Guid.NewGuid();
+        public string Name; 
         public DateTime CreateDate;
 
 
-        public BaseEntity(DateTime? createDate = null)
+        public BaseEntity(string name, DateTime? createDate = null)
         {
+            Name = name;
             CreateDate = createDate is null ? DateTime.Now : (DateTime)createDate;
         }
     }
