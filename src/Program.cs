@@ -1,4 +1,4 @@
-﻿using library_management.src.Entity;
+﻿using library_management.src;
 
 internal class Program
 {
@@ -41,32 +41,70 @@ internal class Program
 
         var lib = new Library(emailService);
 
-        Console.WriteLine("\n---Add Book/User---");
-        lib.AddBook(book1);
+        Console.WriteLine("\n===Add Book/User===");
         lib.AddBook(book1);
         lib.AddBook(book2);
         lib.AddBook(book3);
+        lib.AddBook(book4);
+        lib.AddBook(book5);
+        lib.AddBook(book6);
+        lib.AddBook(book7);
+        lib.AddBook(book8);
+        lib.AddBook(book9);
+        lib.AddBook(book10);
+        lib.AddBook(book11);
+        lib.AddBook(book12);
+        lib.AddBook(book13);
+        lib.AddBook(book14);
+        lib.AddBook(book15);
+        lib.AddBook(book16);
+        lib.AddBook(book17);
+        lib.AddBook(book18);
+        lib.AddBook(book19);
+        lib.AddBook(book20);
 
-        lib.AddUser(user1);
         lib.AddUser(user1);
         lib.AddUser(user2);
         lib.AddUser(user3);
+        lib.AddUser(user4);
+        lib.AddUser(user5);
+        lib.AddUser(user6);
+        lib.AddUser(user7);
+        lib.AddUser(user8);
+        lib.AddUser(user9);
+        lib.AddUser(user10);
 
         Console.ResetColor();
-        Console.WriteLine("\n---Find Book/User---");
+        Console.WriteLine("\n===Find Book/User===");
         lib.FindBook(book1.Name);
         lib.FindBook(book4.Name);
 
         Console.ResetColor();
-        Console.WriteLine("\n---Delete Book/User---");
+        Console.WriteLine("\n===Delete Book/User===");
         lib.DeleteUser(user1.Id);
 
         Console.ResetColor();
-        Console.WriteLine("\n---Display Book---");
+
+        Console.WriteLine("\n===Get Books===");
         lib.GetBooks();
 
+        Console.WriteLine("\n===pagination Books===");
+        Console.WriteLine("\n---Page 1---");
+        lib.GetBooks(1);
+        Console.WriteLine("\n---Page 2---");
+        lib.GetBooks(2);
+        Console.WriteLine("\n---Page 3---");
+        lib.GetBooks(3);
+        Console.WriteLine("\n---Page 4---");
+        lib.GetBooks(4);
 
-        Console.WriteLine("\n---Display User---");
+        Console.WriteLine("\n===Get Users===");
         lib.GetUsers();
+
+        Console.WriteLine("\n===Sort Books by Created Date===");
+        lib.SortBooks();
+
+        Console.WriteLine("\n===Sort Users by Created Date===");
+        lib.SortUsers();
     }
 }

@@ -1,4 +1,4 @@
-namespace library_management.src.Entity
+namespace library_management.src
 {
     public class Library
     {
@@ -87,21 +87,52 @@ namespace library_management.src.Entity
             Notification.SendNotificationOnFailure($"User with Id {id} not found");
         }
 
-        public void GetBooks()
+        public void DisplayBooks(IEnumerable<Book> books)
         {
-            var sortedBooks = books.OrderBy(book => book.CreateDate);
-            foreach (var book in sortedBooks)
+            foreach (var book in books)
             {
                 Console.WriteLine($"Title: {book.Name}, Type: {book.Type}, Date: {book.CreateDate} \n");
             }
         }
-        public void GetUsers()
+        public void DisplayUsers(IEnumerable<User> users)
         {
-            var sortedUsers = users.OrderBy(user => user.CreateDate);
             foreach (var user in users)
             {
                 Console.WriteLine($"Title: {user.Name}, Date: {user.CreateDate} \n");
             }
+        }
+
+        public void GetBooks()
+        {
+            DisplayBooks(books);
+        }
+        public void GetBooks(int page)
+        {
+            int itemPerPage = 5;
+            int offSet = (page - 1) * itemPerPage;
+            var pagination = books.Skip(offSet).Take(itemPerPage);
+            DisplayBooks(pagination);
+        }
+        public void GetUsers()
+        {
+            DisplayUsers(users);
+        }
+        public void GetUsers(int page)
+        {
+            int itemPerPage = 5;
+            int offSet = (page - 1) * itemPerPage;
+            var pagination = users.Skip(offSet).Take(itemPerPage);
+            DisplayUsers(pagination);
+        }
+        public void SortBooks()
+        {
+            var sortedBooks = books.OrderBy(book => book.CreateDate);
+            DisplayBooks(sortedBooks);
+        }
+        public void SortUsers()
+        {
+            var sortedUsers = users.OrderBy(user => user.CreateDate);
+            DisplayUsers(sortedUsers);
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace library_management.src.Entity
+namespace library_management.src
 {
     public interface INotificationService
     {

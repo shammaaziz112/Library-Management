@@ -1,6 +1,6 @@
-namespace library_management.src.Entity
+namespace library_management.src
 {
-    public  class BaseEntity
+    public abstract class BaseEntity
     {
         public Guid Id = Guid.NewGuid();
         public string Name; 
