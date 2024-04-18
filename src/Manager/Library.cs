@@ -56,9 +56,13 @@ namespace library_management.src
             var foundUser = users.Find(user => user.Name.Equals(searchName));
             if (foundUser != null)
             {
-                Console.WriteLine($"Found the user: {foundUser.Name}");
+                Notification.SendNotificationOnSucess($"Found the user: {foundUser.Name}");
             }
-            Console.WriteLine($"{searchName} user not found");
+            else
+            {
+
+                Notification.SendNotificationOnFailure($"{searchName} user not found");
+            }
         }
 
         public void DeleteBook(Guid id)

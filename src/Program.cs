@@ -78,6 +78,8 @@ internal class Program
         Console.WriteLine("\n===Find Book/User===");
         lib.FindBook(book1.Name);
         lib.FindBook(book4.Name);
+        lib.FindUser(user2.Name);
+        lib.FindUser("shama");
 
         Console.ResetColor();
         Console.WriteLine("\n===Delete Book/User===");
