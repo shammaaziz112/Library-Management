@@ -36,27 +36,35 @@ internal class Program
         var book19 = new Book("The Iliad", BooksTypes.TextBook);
         var book20 = new Book("Anna Karenina");
 
-        var lib = new Library();
+        var emailService = new EmailNotificationService();
+        var smsService = new SMSNotificationService();
+
+        var lib = new Library(emailService);
 
         Console.WriteLine("\n---Add Book/User---");
-        lib.Add(book1);
-        lib.Add(book1);
-        lib.Add(book2);
-        lib.Add(book3);
+        lib.AddBook(book1);
+        lib.AddBook(book1);
+        lib.AddBook(book2);
+        lib.AddBook(book3);
 
-        lib.Add(user1);
-        lib.Add(user1);
-        lib.Add(user2);
-        lib.Add(user3);
+        lib.AddUser(user1);
+        lib.AddUser(user1);
+        lib.AddUser(user2);
+        lib.AddUser(user3);
 
+        Console.ResetColor();
         Console.WriteLine("\n---Find Book/User---");
-        lib.Find(book1.Name);
+        lib.FindBook(book1.Name);
+        lib.FindBook(book4.Name);
 
+        Console.ResetColor();
         Console.WriteLine("\n---Delete Book/User---");
-        lib.Delete(user1.Id);
+        lib.DeleteUser(user1.Id);
 
+        Console.ResetColor();
         Console.WriteLine("\n---Display Book---");
         lib.GetBooks();
+
 
         Console.WriteLine("\n---Display User---");
         lib.GetUsers();

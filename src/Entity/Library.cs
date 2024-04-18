@@ -2,82 +2,89 @@ namespace library_management.src.Entity
 {
     public class Library
     {
+        public INotificationService Notification;
         public List<Book> books;
         public List<User> users;
 
-        public Library()
+        public Library(INotificationService notification)
         {
+            Notification = notification;
             books = new List<Book>();
             users = new List<User>();
         }
-
-        public void Add<T>(T item)
+        public void AddBook(Book book)
         {
-            if (item is Book book)
+            var foundBook = books.Find(books => books.Name.Equals(book.Name));
+            if (foundBook == null)
             {
-                var foundBook = books.Find(books => books.Name.Equals(book.Name));
-                if (foundBook == null)
-                {
-                    books.Add(book);
-                    Console.WriteLine($"Added book: {book.Name}");
-                    return;
-                }
+                books.Add(book);
+                Notification.SendNotificationOnSucess($"Book '{book.Name}' added to Library");
             }
-            else if (item is User user)
+            else
             {
-                var foundUser = users.Find(users => users.Name.Equals(user.Name));
-                if (foundUser == null)
-                {
-                    users.Add(user);
-                    Console.WriteLine($"Added user: {user.Name}");
-                    return;
-                }
+                Notification.SendNotificationOnFailure("Didn't add the book successfully");
             }
-            Console.WriteLine("Didn't add successfully");
-
         }
-        public void Find<T>(T name)
+        public void AddUser(User user)
         {
-            if (name is string searchName)
+            var foundUser = users.Find(users => users.Name.Equals(user.Name));
+            if (foundUser == null)
             {
-                var foundBook = books.Find(book => book.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
-                if (foundBook != null)
-                {
-                    Console.WriteLine($"Found the book: {foundBook.Name}");
-                    return;
-                }
-
-                var foundUser = users.Find(user => user.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
-                if (foundUser != null)
-                {
-                    Console.WriteLine($"Found the user: {foundUser.Name}");
-                    return;
-                }
+                users.Add(user);
+                Notification.SendNotificationOnSucess($"User '{user.Name}' added to Library");
             }
+            else
+            {
+                Notification.SendNotificationOnFailure("Didn't add the user successfully");
+            }
+        }
+        public void FindBook(string searchName)
+        {
+            var foundBook = books.Find(book => book.Name.Equals(searchName));
+            if (foundBook != null)
+            {
+                Notification.SendNotificationOnSucess($"Found the book: {foundBook.Name}");
+            }
+            else
+            {
 
-            Console.WriteLine($"{name} not found");
-            return;
+                Notification.SendNotificationOnFailure($"{searchName} book not found");
+            }
+        }
+        public void FindUser(string searchName)
+        {
+            var foundUser = users.Find(user => user.Name.Equals(searchName));
+            if (foundUser != null)
+            {
+                Console.WriteLine($"Found the user: {foundUser.Name}");
+            }
+            Console.WriteLine($"{searchName} user not found");
         }
 
-        public void Delete(Guid id)
+        public void DeleteBook(Guid id)
         {
             var foundBook = books.FirstOrDefault(book => book.Id == id);
             if (foundBook != null)
             {
                 books.Remove(foundBook);
-                Console.WriteLine($"Deleted book: {foundBook.Name} with Id {id}");
-                return;
+                Notification.SendNotificationOnSucess($"Book '{foundBook.Name}' with Id {id} deleted");
             }
-
+            else
+            {
+                Notification.SendNotificationOnFailure($"Book with Id {id} not found");
+            }
+        }
+        public void DeleteUser(Guid id)
+        {
             var foundUser = users.FirstOrDefault(user => user.Id == id);
             if (foundUser != null)
             {
                 users.Remove(foundUser);
-                Console.WriteLine($"Deleted user: {foundUser.Name} with Id {id}");
+                Notification.SendNotificationOnSucess($"Deleted user: {foundUser.Name} with Id {id}");
                 return;
             }
 
-            Console.WriteLine("Id not found");
+            Notification.SendNotificationOnFailure($"User with Id {id} not found");
         }
 
         public void GetBooks()
@@ -96,6 +103,5 @@ namespace library_management.src.Entity
                 Console.WriteLine($"Title: {user.Name}, Date: {user.CreateDate} \n");
             }
         }
-
     }
 }
